@@ -100,6 +100,10 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+#to take screen shot using flameshot
+bindsym Print       exec flameshot full
+bindsym Shift+Print exec flameshot gui
+
 # focus the child container
 #bindsym $mod+d focus child
 
