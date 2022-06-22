@@ -1,8 +1,8 @@
-require('colorscheme')
-require('sets')
-require('keymappings')
-require('variables')
-require('plugins')
+require('user.colorscheme')
+require('user.sets')
+require('user.keymappings')
+require('user.variables')
+require('user.plugins')
 
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"javascript", "lua", "java", "json", "html", "css", "cpp"},
@@ -10,8 +10,7 @@ require'nvim-treesitter.configs'.setup {
     indent = {enable = true}}
 require 'nvim-treesitter.install'.compilers = { "clang" }
 
-require('lspinstallconfig')
-require('lsp-config')
-require('compe-config')
-require('lualinesetup')
-require('plugins-settings')
+require('user.lsp')
+require('user.cmp')
+require('user.plugins-settings')
+require('user.telescope')
