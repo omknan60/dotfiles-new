@@ -5,7 +5,7 @@ require('user.variables')
 require('user.plugins')
 
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"javascript", "lua", "java", "json", "html", "css", "cpp"},
+    ensure_installed = {"javascript", "lua", "java", "json", "html", "css", "cpp", "rust"},
     highlight = { enable = true },
     indent = {enable = true}}
 require 'nvim-treesitter.install'.compilers = { "clang" }
