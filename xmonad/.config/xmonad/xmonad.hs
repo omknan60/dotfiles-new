@@ -1,4 +1,4 @@
---
+
 -- xmonad example config file.
 --
 -- A template showing all available configuration hooks,
@@ -15,10 +15,11 @@ import XMonad.Util.Run
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.WindowSwallowing
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "st"
+myTerminal      = "xterm"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -247,7 +248,7 @@ myLogHook = return ()
 myStartupHook = do
        spawnOnce "nitrogen --restore &"
        spawnOnce "picom &"
-
+myHandleEventHook = swallowEventHook (className =? "XTerm" <||> className =? "URxvt") (return True)
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
