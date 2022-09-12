@@ -16,6 +16,12 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Magnifier
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -183,8 +189,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts tiled ||| Mirror tiled ||| Full ||| threeCol
   where
+     threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
+
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
 
@@ -227,7 +235,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = swallowEventHook (className =? "XTerm" <||> className =? "URxvt") (return True)
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -246,9 +254,9 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
-       spawnOnce "nitrogen --restore &"
-       spawnOnce "picom &"
-myHandleEventHook = swallowEventHook (className =? "XTerm" <||> className =? "URxvt") (return True)
+
+       spawnOnce "xwallpaper --focus ~/Pictures/wallpapers/0157.jpg &"
+       spawnOnce "picom --experimental-backends -b &"
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
@@ -256,7 +264,7 @@ myHandleEventHook = swallowEventHook (className =? "XTerm" <||> className =? "UR
 --
 main = do
         xmproc <- spawnPipe "xmobar -x 0 /home/omkar/.config/xmobar/xmobarrc"
-        xmonad $ docks defaults
+        xmonad $ ewmhFullscreen $ ewmh $ xmobarProp $ docks $ defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
