@@ -243,7 +243,29 @@ myEventHook = swallowEventHook (className =? "XTerm" <||> className =? "URxvt") 
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+myLogHook = dynamicLogWithPP $ xmobarPP
+        { ppOutput = \x -> hPutStrLn xmproc0 x   -- xmobar on monitor 1
+
+        , ppCurrent = xmobarColor color06 "" . wrap
+                      ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
+          -- Visible but not current workspace
+        , ppVisible = xmobarColor color06 "" . clickable
+          -- Hidden workspace
+        , ppHidden = xmobarColor color05 "" . wrap
+                     ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
+          -- Hidden workspaces (no windows)
+        , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
+          -- Title of active window
+        , ppTitle = xmobarColor color16 "" . shorten 60
+          -- Separator character
+        , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
+          -- Urgent workspace
+        , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
+          -- Adding # of windows on current workspace to the bar
+        , ppExtras  = [windowCount]
+          -- order of things in xmobar
+        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+        }
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -256,14 +278,13 @@ myLogHook = return ()
 myStartupHook = do
 
        spawnOnce "xwallpaper --focus ~/Pictures/wallpapers/0157.jpg &"
-       spawnOnce "picom --experimental-backends -b &"
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-        xmproc <- spawnPipe "xmobar -x 0 /home/omkar/.config/xmobar/xmobarrc"
+ --       xmproc <- spawnPipe "xmobar -x 0 /home/omkar/.config/xmobar/xmobarrc"
         xmonad $ ewmhFullscreen $ ewmh $ xmobarProp $ docks $ defaults
 
 -- A structure containing your configuration settings, overriding

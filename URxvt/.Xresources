@@ -25,8 +25,8 @@ XTerm.vt100.translations: #override \n\
   Ctrl <Key> j: smaller-vt-font() \n\
   Ctrl <Key> k: larger-vt-font()
 XTerm*vt100.translations: #override \
-    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
-    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+    Shift Ctrl <Key> c: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> v: insert-selection(CLIPBOARD)
 
 ! Every shell is a login shell by default (for inclusion of all necessary environment variables)
 XTerm*loginshell: true
