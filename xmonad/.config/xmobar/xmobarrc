@@ -1,5 +1,5 @@
 Config { overrideRedirect = False
-       , font     = "xft:JetBrains Mono-11"
+       , font     = "xft:DejaVuSansMono Nerd Font-11"
        , fgColor  = "#bbc2cf"
        , bgColor  = "#282c34"
        , lowerOnStart =     True    -- send to bottom of window stack on start
