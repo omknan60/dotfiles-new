@@ -29,7 +29,7 @@ return require('packer').startup(function()
     requires = { {'nvim-lua/plenary.nvim'} }
     }
     use "neovim/nvim-lspconfig" -- enable LSP
-    use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+    use "williamboman/mason.nvim" -- simple to use language server installer
 
     use "hrsh7th/nvim-cmp" -- The completion plugin
     use "hrsh7th/cmp-buffer" -- buffer completions
@@ -37,6 +37,10 @@ return require('packer').startup(function()
     use "hrsh7th/cmp-cmdline" -- cmdline completions
     use "saadparwaiz1/cmp_luasnip" -- snippet completions
     use "hrsh7th/cmp-nvim-lsp"
+    
+    --colorschemes
+    use 'folke/tokyonight.nvim'
+    use { "ellisonleao/gruvbox.nvim" }
 
     use "L3MON4D3/LuaSnip" --snippet engine
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use

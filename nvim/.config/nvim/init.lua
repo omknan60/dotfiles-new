@@ -10,7 +10,7 @@ require'nvim-treesitter.configs'.setup {
     indent = {enable = true}}
 require 'nvim-treesitter.install'.compilers = { "clang" }
 
-require('user.lsp')
+require('user.mason')
 require('user.cmp')
 require('user.plugins-settings')
 require('user.telescope')
