@@ -1,0 +1,12 @@
+font="/usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf"
+font-size=11
+hint-font=false
+late-keyboard-init=true
+
+outline-width=2
+outline-color=#abcabc
+border-width=2
+
+width=40%
+height=40%
+
