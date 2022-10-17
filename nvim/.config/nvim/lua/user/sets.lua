@@ -14,7 +14,7 @@ vim.cmd('set nowritebackup')
 vim.cmd('set noswapfile')
 vim.cmd('set nocompatible')
 vim.opt.mouse = "a"
-vim.opt.clipboard="unnamed"
+vim.opt.clipboard="unnamedplus"
 vim.opt.belloff="all"
 vim.opt.tabstop=4
 vim.opt.softtabstop=4

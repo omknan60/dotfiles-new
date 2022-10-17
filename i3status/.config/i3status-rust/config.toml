@@ -16,14 +16,10 @@ block = "cpu"
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = " $icon $mem_total_used_percents.eng(2) "
-format_swap = " $icon $swap_used_percents.eng(2) "
+format_mem = " $icon $mem_free.eng(3,B,M)/$mem_total.eng(3,B,M) "
 
 [[block]]
 block = "sound"
-[[block.click]]
-button = "left"
-cmd = "pavucontrol"
 
 [[block]]
 block = "time"
