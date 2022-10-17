@@ -25,7 +25,7 @@ set $tofi tofi-drun | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg ~/Pictures/wallpapers/ales-krivec-4miBe6zg5r0-unsplash.jpg fill
+#output * bg ~/Pictures/wallpapers/ales-krivec-4miBe6zg5r0-unsplash.jpg fill
 #
 # Example configuration:
 #
