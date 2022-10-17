@@ -353,7 +353,7 @@ c.fonts.default_family = '"Source Code Pro"'
 # either a float value with a "pt" suffix, or an integer value with a
 # "px" suffix.
 # Type: String
-c.fonts.default_size = '11pt'
+c.fonts.default_size = '12pt'
 
 # Font used in the completion widget.
 # Type: Font
