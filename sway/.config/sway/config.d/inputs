@@ -3,10 +3,10 @@
 # Author: Oscar Carballal Prego <oscar.carballal@protonmail.com>
 
 # Provide all keyboards connected the following configuration
-input type:keyboard {
-    xkb_layout us,us(dvorak),es,de
-    xkb_options grp:alt_shift_toggle
-}
+#input type:keyboard {
+#    xkb_layout us,us(dvorak),es,de
+#    xkb_options grp:alt_shift_toggle
+#}
 
 # Provide all touchpads and mice the same configuration
 input type:pointer {

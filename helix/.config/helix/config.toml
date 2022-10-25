@@ -1,33 +1,18 @@
-theme = "onelight"
+theme = "catppuccin_mocha"
 
 [editor]
-
 line-number = "relative"
-
-
 mouse = true
-
-
 auto-format = true
-
-
 auto-pairs = false
 
 [editor.lsp]
-
-
 display-messages = true
 
-
 [editor.cursor-shape]
-
 insert = "bar"
-
 normal = "block"
-
-
 select = "underline"
 
 [editor.file-picker]
-
 hidden = false

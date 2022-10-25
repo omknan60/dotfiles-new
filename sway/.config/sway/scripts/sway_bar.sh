@@ -14,13 +14,17 @@ current_time=$(date "+%H:%M")
 # Commands
 #############
 
+#Memory
+memory_total=$(awk '{print $2=$2/1024}' <(grep -E 'MemTotal' /proc/meminfo))
+memory_free=$(awk '{print $2=$2/1024}' <(grep -E 'MemFree' /proc/meminfo))
+memory_used=$(bc <<<"scale=1; $memory_total-$memory_free")
 # Battery or charger
-battery_charge=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "percentage" | awk '{print $2}')
-battery_status=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "state" | awk '{print $2}')
+battery_charge=$(upower --show-info $(upower --enumerate | grep 'BAT') | grep -E "percentage" | awk '{print $2}')
+battery_status=$(upower --show-info $(upower --enumerate | grep 'BAT') | grep -E "state" | awk '{print $2}')
 
 # Audio and multimedia
-audio_volume=$(pamixer --sink `pactl list sinks short | grep RUNNING | awk '{print $1}'` --get-volume)
-audio_is_muted=$(pamixer --sink `pactl list sinks short | grep RUNNING | awk '{print $1}'` --get-mute)
+audio_is_muted=$(awk -F"[][]" '/Right:/ { print $4 }' <(amixer sget Master)) 
+audio_volume=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
 media_artist=$(playerctl metadata artist)
 media_song=$(playerctl metadata title)
 player_status=$(playerctl status)
@@ -39,35 +43,35 @@ loadavg_5min=$(cat /proc/loadavg | awk -F ' ' '{print $2}')
 # refresh on the bar
 #weather=$(curl -Ss 'https://wttr.in/Pontevedra?0&T&Q&format=1')
 
-if [ $battery_status = "discharging" ];
+if [ "$battery_status" == "discharging" ]
 then
     battery_pluggedin='⚠'
 else
     battery_pluggedin='⚡'
 fi
 
-if ! [ $network ]
+if ! [ "$network" ]
 then
    network_active="⛔"
 else
    network_active="⇆"
 fi
 
-if [ $player_status = "Playing" ]
+if [ "$player_status" == "Playing" ]
 then
     song_status='▶'
-elif [ $player_status = "Paused" ]
+elif [ "$player_status" == "Paused" ]
 then
     song_status='⏸'
 else
     song_status='⏹'
 fi
 
-if [ $audio_is_muted = "true" ]
+if [ $audio_is_muted = "off" ]
 then
     audio_active='🔇'
 else
-    audio_active='🔊'
+    audio_active='🔊 '$audio_volume
 fi
 
-echo "🎧 $song_status $media_artist - $media_song | ⌨ $language | $network_active $interface_easyname ($ping ms) | 🏋 $loadavg_5min | $audio_active $audio_volume% | $battery_pluggedin $battery_charge | $date_and_week 🕘 $current_time"
+echo "🎧 $song_status $media_artist - $media_song | ⌨ $language | $network_active ($ping ms) |  $memory_used MB | 🏋 $loadavg_5min | $audio_active | $date_and_week 🕘 $current_time"
