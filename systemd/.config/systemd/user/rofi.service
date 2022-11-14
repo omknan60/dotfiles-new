@@ -1,0 +1,11 @@
+[Unit]
+Description=Application Launcher
+Documentation=https://github.com/Alexays/Waybar/wiki/
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rofi
+
+[Install]
+WantedBy=sway-session.target

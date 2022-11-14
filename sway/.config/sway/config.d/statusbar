@@ -5,14 +5,26 @@
 # fine, so if you want, you can activate it and comment the 'waybar' line on
 # the main configuration.
 
-bar {
-    position top
+# bar {
+#     position bottom
+# 
+#     status_command while ~/.config/sway/scripts/sway_bar.sh; do sleep 1; done
+# 
+#     colors {
+#         statusline #ffffff
+#         background #000000
+#         inactive_workspace #000000 #000000 #5d5d5d
+#     }
+# }
 
-    status_command while ~/.config/sway/scripts/sway_bar.sh; do sleep 1; done
+bar {
+    position bottom
+
+    status_command i3status-rs
 
     colors {
         statusline #ffffff
-        background #000000AA
-        inactive_workspace #000000AA #000000AA #5d5d5dAA
+        background #323232
+        inactive_workspace #323232 #323232 #5c5c5c
     }
 }

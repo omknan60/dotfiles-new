@@ -1,7 +1,10 @@
 icons_format = "{icon}"
 
 [theme]
-theme = "solarized-dark"
+theme = "native"
+[theme.overrides]
+idle_fg = "#abcdef"
+
 [icons]
 icons = "awesome"
 [icons.overrides]
@@ -15,11 +18,21 @@ block = "cpu"
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = " $icon $mem_free.eng(3,B,M)/$mem_total.eng(3,B,M) "
+format = " $icon $mem_total_used_percents.eng(2) "
+
+[[block]]
+block = "disk_space"
+info_type = "available"
+alert_unit = "GB"
+alert = 10.0
+warning = 15.0
+format = " $icon $used "
 
 [[block]]
 block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
 
 [[block]]
 block = "time"
