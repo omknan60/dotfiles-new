@@ -17,14 +17,14 @@
 #     }
 # }
 
-bar {
-    position bottom
-
-    status_command i3status-rs
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #323232 #323232 #5c5c5c
-    }
-}
+# bar {
+#     position bottom
+# 
+#     status_command i3status-rs
+# 
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #323232 #323232 #5c5c5c
+#     }
+# }

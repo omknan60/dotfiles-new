@@ -24,5 +24,5 @@ vim.opt.scrolloff=8
 vim.opt.signcolumn="yes"
 vim.opt.colorcolumn="90"
 vim.opt.clipboard="unnamed"
-vim.opt.completeopt = "menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noselect"
 --vim.opt.guifont='Consolas:h12'

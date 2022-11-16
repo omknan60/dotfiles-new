@@ -31,7 +31,7 @@ set $menu rofi -show run
 #set $menu wofi --show drun -G -b
 
 # Default wallpaper
-set $wallpaper ~/.config/sway/images/wallpaper.jpg
+set $wallpaper ~/.config/sway/images/forest_fog_autumn.jpg
 
 # Default lockscreen background
 set $lockscreenbg ~/.config/sway/images/lockscreen_background.jpg
