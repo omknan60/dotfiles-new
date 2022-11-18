@@ -1,7 +1,7 @@
 icons_format = "{icon}"
 
 [theme]
-theme = "native"
+theme = "gruvbox-dark"
 [theme.overrides]
 idle_fg = "#abcdef"
 
@@ -19,6 +19,10 @@ block = "cpu"
 [[block]]
 block = "memory"
 format = " $icon $mem_total_used_percents.eng(2) "
+
+[[block]]
+block = "battery"
+format = " $icon $percentage "
 
 [[block]]
 block = "disk_space"

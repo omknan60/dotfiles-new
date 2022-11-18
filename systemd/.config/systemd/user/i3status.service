@@ -5,8 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-EnvironmentFile=~/.config/systemd/user/envi3status
-ExecStart=/usr/bin/i3status-rs $ARG1
+ExecStart=/usr/bin/i3status-rs
 
 [Install]
 WantedBy=sway-session.target
