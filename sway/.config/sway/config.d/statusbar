@@ -28,3 +28,7 @@
 #         inactive_workspace #323232 #323232 #5c5c5c
 #     }
 # }
+
+bar {
+    swaybar_command waybar
+  }
