@@ -63,6 +63,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 --Nvim Tree
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
+keymap("n", "dw", "bdw", opts) --delete from anywhere within the word
 -- Terminal --
 -- Better terminal navigation
 -- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
