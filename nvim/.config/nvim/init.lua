@@ -1,17 +1,8 @@
-require('user.sets')
-require('user.keymappings')
-require('user.variables')
-require('user.plugins')
-require('user.colorscheme')
-require('user.cmp')
-require('user.plugins-settings')
-require('user.telescope')
-require('user.lsp')
-require('user.illuminate')
-require('lualine').setup()
-
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"javascript", "lua", "java", "json", "html", "css", "cpp", "rust" },
-    highlight = { enable = true },
-    indent = {enable = true}}
-require 'nvim-treesitter.install'.compilers = { "clang" }
+require 'user.plugins'
+require 'user.settings'
+require 'user.keymaps'
+require 'user.lsp'
+require 'user.cmp'
+require 'user.treesitter'
+require 'user.telescope'
+require 'user.nvim-tree'
