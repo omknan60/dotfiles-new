@@ -17,11 +17,11 @@ exec light -S 2
 #########################
 # Main definitions
 #########################
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+# Logo key. Use Mod1 for Alt. Mod4 for logo
+set $mod Mod1
 
 # Your preferred terminal emulator
-set $term foot tmux -u
+set $term foot
 
 # font "JetBrains Mono NL"
 font pango:JetBrains Mono NL 9
@@ -29,7 +29,8 @@ font pango:JetBrains Mono NL 9
 # Your preferred application launcher
 #set $menu wofi --show run -Iib -l 5 -W 500 -x -10 -y -51
 #set $menu rofi -show run
-set $menu dmenu-wl_run -i
+#set $menu dmenu-wl_run -i
+set $menu dmenu_path | dmenu | xargs swaymsg exec --
 #set $menu tofi-run | xargs swaymsg exec --
 #set $menu wofi --show drun -G -b
 

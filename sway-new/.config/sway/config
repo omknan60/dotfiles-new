@@ -1,5 +1,5 @@
 # Appereance
-font pango:JetBrains Mono NL 10
+font pango:Source Code Pro 12
 include ~/.config/sway/$(hostname)/*
 output * bg ~/.config/sway/wall.png fill
 
@@ -158,14 +158,6 @@ input "*" {
 
 
 # Autostart
-exec --no-startup-id kitty -e tmux new -s std
-exec --no-startup-id dropbox
-exec --no-startup-id /usr/lib/kdeconnectd
-exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id mpd
-exec --no-startup-id redshift
-exec --no-startup-id mako
-exec --no-startup-id owncloud
 exec swayidle  \
     timeout 900 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \

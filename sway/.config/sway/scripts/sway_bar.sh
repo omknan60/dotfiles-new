@@ -74,4 +74,4 @@ else
     audio_active='🔊 '$audio_volume
 fi
 
-echo "🎧 $song_status $media_artist - $media_song | ⌨ $language | $network_active ($ping ms) |  $memory_used MB | 🏋 $loadavg_5min | $audio_active | $date_and_week 🕘 $current_time"
+echo "🕘 $current_time"
