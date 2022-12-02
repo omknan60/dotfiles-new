@@ -4,6 +4,7 @@ return require('packer').startup(function(use)
 
   -- Colorscheme Plugins
   use 'gruvbox-community/gruvbox'
+  use 'xiyaowong/nvim-transparent'
 
   -- Lsp Plugins
   use 'neovim/nvim-lspconfig'
