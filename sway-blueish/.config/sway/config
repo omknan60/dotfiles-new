@@ -35,8 +35,8 @@ exec_always --no-startup-id ~/.config/sway/scripts/idle.sh
 #exec_always --no-startup-id ~/.config/sway/scripts/battery-low-notify.sh
 
 #dunst
-bindsym $mod+o exec notify-send -t 3500 "$(date '+%a %b %e %r')"
-bindsym $mod+i exec notify-send "$(curl wttr.in/pokhara?format=3)"
+#bindsym $mod+o exec notify-send -t 3500 "$(date '+%a %b %e %r')"
+#bindsym $mod+i exec notify-send "$(curl wttr.in/pokhara?format=3)"
 
 #poweroff, reboot shortcuts
 bindsym $mod+Shift+e exec $powermenu
@@ -70,10 +70,10 @@ bindsym $mod+Shift+Return exec foot tmux -u
 bindsym $mod+F4 kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id wofi --show run
+bindsym $mod+d exec --no-startup-id wofi --show drun
 
 bar {
-    swaybar_command waybar
+    swaybar_command yambar
 }
 
 ################################################################################################
