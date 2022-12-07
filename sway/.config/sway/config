@@ -1,219 +1,596 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
+#------#
+# TODO #
+#------#
 
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod1
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-# Your preferred terminal emulator
-set $term foot
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# switch to using termite + base16-manager
+# idle inhibition: https://github.com/swaywm/sway/pull/3962
+# mirror display (e.g., for live programming session in beamer mode, to have the laptop screen in EPFL mode)
+	# wait on https://github.com/swaywm/sway/issues/1666
+# security
+# screenshot active window
+# disable pen when lid is closed (EPFL workplace)
+# remote display (alternative to mirror display?)
+# program launcher
 
-default_border none
+#----------------------#
+# X11 only, to replace #
+#----------------------#
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg ~/Pictures/wallpapers/landscape.jpg fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+# Color theme for urxvt.
+# Urxvt can read ~/.Xdefaults, but without a pre-processor.
+exec xrdb -load ~/.Xresources
 
-### Idle configuration
-#
-# Example configuration:
-#
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+#--------#
+# Inputs #
+#--------#
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+# Custom layout defined in ~/.xkb/symbols/custom.
+# Symlinked to /usr/share/X11/xkb/symbols/custom for X11.
 
-### Input configuration
-#
-# Example configuration:
-#
-input "1739:52759:SYNA32A5:00_06CB:CE17_Touchpad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
+# ESC, CAPS LOCK, and CTRL swapped by caps2esc from interception-tools.
+#	* ESC becomes CAPS LOCK
+# 	* CAPS LOCK is ESC when pressed alone
+# 	* CAPS LOCK is CTRL when key-chording
+# Resources:
+#	* https://github.com/swaywm/sway/issues/719
+#	* https://github.com/alols/xcape/issues/67
+#	* https://aur.archlinux.org/packages/interception-caps2esc/
+# Alternative (limitation: CAPS LOCK doesn't do ESC):
+#	* xkb_options caps:ctrl_modifier,shift:both_capslock
+# Alternative (limitation: xcape doesn't work for wayland):
+#	* same xkb_options
+#	* exec xcape -e 'Caps_Lock=Escape'
+
+# X11: /etc/X11/xorg.conf.d/00-keyboard.conf
+# virtual console: /etc/vconsole.conf
+
+# X11: /etc/X11/xorg.conf.d/30-touchpad.conf
+input "1739:0:Synaptics_TM3075-002" {
+	scroll_method edge
+	tap enabled
+	pointer_accel 0.8
 }
 
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+input "1133:4122:Logitech_Performance_MX" {
+	pointer_accel 0.8
+}
 
-### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
-    bindsym $mod+Return exec $term
+input "1386:236:Wacom_ISDv4_EC_Pen" map_to_output eDP-1
+input "1739:29252:SYNAPTICS_Synaptics_Touch_Digitizer_V04" map_to_output eDP-1
 
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+#---------------------#
+# Basic configuration #
+#---------------------#
 
-    # Start your launcher
-    bindsym $mod+d exec $menu
+set $mod Mod4
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
+# Window borders and titles
+default_border pixel 2
+hide_edge_borders none
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+# Never move the mouse to the center of the screen.
+mouse_warping none
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+# Font for window titles (and the bar).
+#font pango:DejaVu Sans Mono 12
+font pango:Inconsolata 14
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+# start a terminal
+#set $shell exec termite -e fish
+set $shell foot
+bindsym $mod+Return exec $shell
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+# kill focused window
+bindsym $mod+q kill
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu-wl_run
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# reload the configuration file
+bindsym $mod+Shift+c reload
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+#------------#
+# Navigation #
+#------------#
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
 
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+#set $i3-vim-nav /home/michael/.config/vim/plugged/i3-vim-nav/i3-vim-nav
+#bindsym --release $mod+j exec $i3-vim-nav j
+#bindsym --release $mod+k exec $i3-vim-nav k
+#bindsym --release $mod+l exec $i3-vim-nav l
+#bindsym --release $mod+h exec $i3-vim-nav h
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+#set $i3-vim-focus /home/michael/.config/vim/plugged/i3-vim-focus/i3-vim-focus/target/release/i3-vim-focus
+#bindsym $mod+j exec $i3-vim-focus down
+#bindsym $mod+k exec $i3-vim-focus up
+#bindsym $mod+l exec $i3-vim-focus right
+#bindsym $mod+h exec $i3-vim-focus left
+
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
+
+# focus the parent / child container
+bindsym $mod+p focus parent
+bindsym $mod+c focus child
+
+# jump to urgent window
+bindsym $mod+x [urgent=latest] focus
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# toggle tiling / floating mode
+bindsym $mod+Shift+space floating toggle
+
+# $mod+MouseLeft to drag floating windows
+# $mod+MouseRight to resize floating windows
+floating_modifier $mod
+
+#floating_maximum_size 800 x 800
+
+#--------#
+# Layout #
+#--------#
+
+# split in horizontal / vertical orientation
+bindsym $mod+b split v
+#bindsym $mod+Shift+v split v
+bindsym $mod+v split h
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+#------------#
+# Workspaces #
+#------------#
+
+# TERM, CODE, READ, WEB, COM, FILES, MEDIA (audio, video, images), MON, MISC (gimp, inkscpae)
+set $WS1  workspace  1: MISC
+set $WS2  workspace  2: WEB
+set $WS3  workspace  3: COM
+set $WS4  workspace  4: MISC
+set $WS5  workspace  5: MISC
+set $WS6  workspace  6: BEAM
+set $WS7  workspace  7: MON
+set $WS8  workspace  8: MISC
+set $WS9  workspace  9: MISC
+set $WS10 workspace 10: MISC
+
+bindsym $mod+1 $WS1
+bindsym $mod+2 $WS2
+bindsym $mod+3 $WS3
+bindsym $mod+4 $WS4
+bindsym $mod+5 $WS5
+bindsym $mod+6 $WS6
+bindsym $mod+7 $WS7
+bindsym $mod+8 $WS8
+bindsym $mod+9 $WS9
+bindsym $mod+0 $WS10
+
+bindsym $mod+Shift+1 move container to $WS1
+bindsym $mod+Shift+2 move container to $WS2
+bindsym $mod+Shift+3 move container to $WS3
+bindsym $mod+Shift+4 move container to $WS4
+bindsym $mod+Shift+5 move container to $WS5
+bindsym $mod+Shift+6 move container to $WS6
+bindsym $mod+Shift+7 move container to $WS7
+bindsym $mod+Shift+8 move container to $WS8
+bindsym $mod+Shift+9 move container to $WS9
+bindsym $mod+Shift+0 move container to $WS10
+
+# move current workspace to next output
+bindsym $mod+Shift+m move workspace to output right
+
+#------------------------------#
+# Actions for specific windows #
+#------------------------------#
+
+# No border (title bar) for browser.
+#for_window [class="Firefox"] border none
+
+# Slides on beamer.
+for_window [title="pdfpc - presentation .*"] move container to $WS6
+#for_window [app_id="pdfpc"] move container to $WS6
+#assign [class="Pdfpc" window_role="presentation"] workspace $WS6
+
+# Tor browser window shouldn't be resized.
+# Default resolution of 1000 x 1000 should be kept for anonymity.
+for_window [class="Tor Browser"] floating enable
+#for_window [class="Tor Browser"] floating enable resize set width 1004 px height 1102 px
+
+# When opening windows initially.
+for_window [app_id="firefox"] layout tabbed
+for_window [app_id="thunderbird"] layout tabbed
+#for_window [title="htop"] layout splitv
+
+#-------------#
+# Color theme #
+#-------------#
+
+# Solarized common
+set $yellow        #b58900
+set $orange        #cb4b16
+set $red           #dc322f
+set $magenta       #d33682
+set $violet        #6c71c4
+set $blue          #268bd2
+set $cyan          #2aa198
+set $green         #859900
+
+# Solarized dark
+set $basez3        #002b36
+set $basez2        #073642
+set $basez1        #586e75
+set $basez0        #657b83
+set $base0         #839496
+set $base1         #93a1a1
+set $base2         #eee8d5
+set $base3         #fdf6e3
+
+# Screen color when no application are open.
+#output * background $basez3 solid_color
+output * bg ~/Pictures/wallpapers/landscape.jpg fill
+
+# class                 border  backgr. text    indicator child_border
+client.focused          $basez1 $basez1 $base1  $basez1   $basez1
+client.focused_inactive $basez2 $basez2 $basez1 $basez2   $basez2
+client.unfocused        $basez2 $basez2 $basez1 $basez2   $basez2
+client.urgent           $red    $red    $base3  $red	  $red
+#client.placeholder      #000000 #0c0c0c #ffffff #000000
+#client.background       #ffffff
+
+#------------#
+# Status bar #
+#------------#
+
+#--------------#
+# Mode: resize #
+#--------------#
+
+# resize window (you can also use the mouse for that)
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym h resize shrink width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-# bar {
-#     position top
-# 
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     # The default just shows the current date and time.
-#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-# 
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
+#-----------------#
+# Mode: workplace #
+#-----------------#
 
-include @sysconfdir@/sway/config.d/*
+# Pen sometimes clicks when lid is closed.
+set $pen_on input "1386:236:Wacom_ISDv4_EC_Pen" events enabled
+set $pen_off input "1386:236:Wacom_ISDv4_EC_Pen" events disabled
+
+# To set brightness on external monitors through /sys/class/backlight/.
+# Let some time for the monitor to turn on.
+set $ddc_on exec sleep 20 && sudo modprobe ddcci
+set $ddc_off exec sudo modprobe -r ddcci_backlight ddcci
+
+# Call true to exit with 0 and run swayidle even when no process were killed.
+set $dpms_on exec pkill swayidle || true && swayidle -w \
+    timeout 600 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"'
+# Auto-lock is painful. I prefer to lock explicitly. Same as auto-sleep.
+#    timeout 300 'swaylock' \
+# Suspend happens before lock. The screen is seen on wakeup while it's being locked.
+#    before-sleep 'swaylock'
+
+# On by default.
+$dpms_on
+
+# It's a pain when screen turns off during presentation or TV.
+set $dpms_off exec pkill swayidle
+
+set $laptop move workspace to output eDP-1
+set $ext1  move workspace to output HDMI-A-2  # mini-HDMI on the side
+set $ext2  move workspace to output DP-1  # HDMI on docking station
+
+set $mode_workplace Workplace: (l) laptop, (b,B) beamer, (h) home, (e) EPFL
+bindsym $mod+w mode "$mode_workplace"
+
+mode "$mode_workplace" {
+
+	bindsym l \
+		output eDP-1 enable res 1920x1080, \
+		output DP-1 disable, \
+		output HDMI-A-2 disable, \
+		$pen_on, \
+		$dpms_on, \
+		$ddc_off, \
+		mode "default"
+
+	bindsym h \
+		output eDP-1 enable res 1920x1080 pos 0 1080, \
+		output HDMI-A-2 enable res 1920x1080 pos 0 0, \
+		$pen_on, \
+		$dpms_on, \
+		$ddc_on, \
+		$WS10,$ext1, $WS9,$ext1, $WS8,$ext1, $WS7,$laptop, $WS6,$laptop, \
+		$WS5,$ext1, $WS4,$ext1, $WS3,$ext1, $WS2,$ext1, $WS1,$ext1, \
+		mode "default"
+
+	# TODO: DP-1 or HDMI-A-2 should mirror eDP-1
+	# We otherwise don't have any screen left when disconnecting dock.
+	bindsym e \
+		output eDP-1 enable res 1920x1080 pos 3840 0, \
+		output DP-1 enable res 1920x1080 pos 0 0, \
+		output HDMI-A-2 enable res 1920x1080 pos 1920 0, \
+		$pen_off, \
+		$dpms_on, \
+		$ddc_on, \
+		$WS10,$ext1, $WS9,$ext1, $WS8,$ext1, $WS7,$ext2, $WS6,$ext1, \
+		$WS5,$ext1, $WS4,$ext1, $WS3,$ext2, $WS2,$ext2, $WS1,$ext1, \
+		mode "default"
+
+	bindsym b \
+		output eDP-1 enable res 1920x1080 pos 0 0, \
+		output DP-1 disable, \
+		output HDMI-A-2 enable pos 1920 0, \
+		$pen_on, \
+		$dpms_off, \
+		$ddc_off, \
+		$WS10,$laptop, $WS9,$laptop, $WS8,$laptop, $WS7,$laptop, $WS6,$ext1, \
+		$WS5,$laptop, $WS4,$laptop, $WS3,$laptop, $WS2,$laptop, $WS1,$laptop, \
+		mode "default"
+
+#	bindsym Shift+b \
+#		output eDP-1 enable res 1920x1080, \
+#		output DP-1 disable, \
+#		output HDMI-A-2 enable mirror eDP-1, \
+#		$pen_on, \
+#		$dpms_off, \
+#		$ddc_off, \
+#		mode "default"
+
+	bindsym Escape mode "default"
+}
+
+#-------------------------#
+# Mode: network selection #
+#-------------------------#
+
+set $net_start exec sudo netctl start
+set $net_stop exec sudo netctl stop
+
+set $net_stop_all exec sudo netctl stop-all, \
+	exec sudo resolvconf -d '*.*', \
+	exec dbus-send --system --type=method_call \
+	     --dest=org.bluez /org/bluez/hci0/dev_58_24_29_79_4E_8A \
+		 org.bluez.Network1.Disconnect
+#    exec sudo hciconfig hci0 down
+#   rfkill
+
+# sudo hciconfig hci0 up &&
+set $bluetooth exec dbus-send --system --type=method_call \
+	--dest=org.bluez /org/bluez/hci0/dev_58_24_29_79_4E_8A \
+	org.bluez.Network1.Connect string:'nap' && \
+	sleep 2 && sudo netctl start bphone
+
+# set $vpn_start exec sudo systemctl start vpn_epfl
+# set $vpn_stop  exec sudo systemctl stop  vpn_epfl
+
+set $tunnels exec tunnels restart
+
+set $mode_network Network: (e,E,r) epfl, (h,H) home, (p,P) phone, (d) DHCP, (n) none, (t) tunnels, (v,V) VPN
+bindsym $mod+n mode "$mode_network"
+
+mode "$mode_network" {
+	bindsym e       $net_start wepfl_ttls,    mode "default"
+	bindsym r       $net_start weduroam_ttls, mode "default"
+	bindsym Shift+e $net_start eepfl,         mode "default"
+	bindsym h       $net_start whome,         mode "default"
+	bindsym Shift+h $net_start ehome,         mode "default"
+	bindsym p       $bluetooth,               mode "default"
+	bindsym Shift+p $net_start wphone,        mode "default"
+	bindsym d       $net_start edhcp,         mode "default"
+	bindsym n       $net_stop_all,            mode "default"
+	bindsym t       $tunnels,                 mode "default"
+	bindsym v       $net_start vepfl,         mode "default"
+	bindsym Shift+v $net_stop vepfl,          mode "default"
+	bindsym Escape                            mode "default"
+}
+
+#------------------#
+# Power management #
+#------------------#
+
+set $mode_system System: (l) lock, (e) exit, (s) suspend, (h) hibernate, (r) reboot, (o) power-off
+bindsym $mod+Escape mode "$mode_system"
+
+mode "$mode_system" {
+	bindsym l exec swaylock, mode "default"
+	bindsym e exit
+	bindsym s exec swaylock && systemctl suspend, mode "default"
+	bindsym h exec swaylock && systemctl hibernate, mode "default"
+	bindsym r exec systemctl reboot
+	bindsym o exec systemctl poweroff
+	bindsym Escape mode "default"
+}
+
+#-------------------------#
+# Mode: mount filesystems #
+#-------------------------#
+
+set $mount exec mount
+set $umount exec umount
+# Will be able to use umount with next version of util-linux.
+# https://github.com/libfuse/libfuse/issues/246
+set $fumount exec fusermount -u
+
+#-------------------------#
+# Mode: open applications #
+#-------------------------#
+
+set $mode_open Programs: (I) init, (C) close all, (a,A,b,f,g,G,i,l,m,M,o,p,P,r,R,s,t,v,V,x,z)
+bindsym $mod+o mode "$mode_open"
+
+mode "$mode_open" {
+	bindsym a                                                        mode "$android_control"
+	bindsym Shift+a exec audacity,                                   mode "default"
+	bindsym b       exec blender,                                    mode "default"
+	bindsym f       exec firefox -P browsing,                        mode "default"
+	bindsym g       exec gimp,                                       mode "default"
+	bindsym Shift+g exec gephi,                                      mode "default"
+	bindsym h       exec urxvt -e htop,                              mode "default"
+	bindsym i       exec inkscape,                                   mode "default"
+	bindsym j       exec jupyter-lab,                                mode "default"
+	bindsym l       exec libreoffice,                                mode "default"
+	bindsym m       exec urxvt -e ncmpcpp,                           mode "default"
+	bindsym Shift+m exec meshlab,                                    mode "default"
+	bindsym o       exec tor-browser,                                mode "default"
+#	bindsym p       exec urxvt -e python -i -c "import numpy as np", mode "default"
+	bindsym p       exec urxvt -e ipython --pylab --no-confirm-exit, mode "default"
+#	bindsym p       exec urxvt -e jupyter console,                   mode "default"
+	bindsym Shift+p exec pavucontrol,                                mode "default"
+	bindsym r       exec urxvt -e ranger /data,                      mode "default"
+	bindsym Shift+r exec rambox,                                     mode "default"
+	bindsym s       exec scribus,                                    mode "default"
+	bindsym t       exec thunderbird,                                mode "default"
+	bindsym v       exec urxvt -e $EDITOR,                           mode "default"
+	bindsym Shift+v exec env QT_QPA_PLATFORM=xcb virtualbox,         mode "default"
+	bindsym x       exec xournalpp,                                  mode "default"
+	bindsym z       exec zoom,                                       mode "default"
+	bindsym Escape                                                   mode "default"
+
+	bindsym Shift+c [title=".*"] kill, mode "default"
+
+	bindsym Shift+i \
+		$urxvt_transparent -name "scratchpad_editor" -e $EDITOR +start /data/notes/scratchpad.md, \
+		$WS7, exec urxvt -e journalctl -f, \
+		$WS3, exec rambox, exec thunderbird, \
+		$WS2, exec firefox -P browsing, \
+		mode "default"
+}
+
+set $android_control Android control: (t) TV TCP, (p) phone TCP, (P) phone USB
+mode "$android_control" {
+	bindsym t exec android-control tv, mode "default"
+	bindsym p exec android-control phone, mode "default"
+	bindsym Shift+p exec android-control phone-usb, mode "default"
+	bindsym Escape mode "default"
+}
+
+#-------#
+# Music #
+#-------#
+
+#set $mpc exec mpc -h SECRET
+set $mpc exec mpc -h SECRET
+
+set $mode_music Music: (p) previous, (n) next, (space) play / pause
+bindsym $mod+m mode "$mode_music"
+
+mode "$mode_music" {
+	bindsym space $mpc toggle,   mode "default"
+	bindsym n $mpc next,     mode "default"
+	bindsym p $mpc prev,     mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym XF86AudioNext $mpc next
+bindsym XF86AudioPrev $mpc prev
+bindsym XF86AudioPlay $mpc toggle
+bindsym XF86AudioStop $mpc toggle
+
+#---------------#
+# Audio / sound #
+#---------------#
+
+set $mode_audio Audio sink/source: (l) laptop, (w) workstation, (h) HDMI, (b) Bluetooth
+bindsym $mod+a mode "$mode_audio"
+
+mode "$mode_audio" {
+	bindsym l exec pactl-move sink alsa_output.pci-0000_00_1b.0.analog-stereo, exec pactl-move source alsa_input.pci-0000_00_1b.0.analog-stereo, mode "default"
+	bindsym w exec pactl-move sink alsa_output.usb-C-Media_Electronics_Inc._ThinkPad_OneLink_Dock_USB_Audio-00.analog-stereo, exec pactl-move source alsa_input.usb-C-Media_Electronics_Inc._ThinkPad_OneLink_Dock_USB_Audio-00.analog-stereo, mode "default"
+	bindsym h exec pactl-move sink alsa_output.pci-0000_00_03.0.hdmi-stereo, mode "default"
+	bindsym b mode "$audio_bluetooth"
+	bindsym Escape mode "default"
+}
+
+set $btc exec bluetoothctl connect
+set $btd exec bluetoothctl disconnect
+
+set $audio_bluetooth Bluetooth devices: (s) speakers iCube 95 BT, (h) headset BT25 II, (c) CD400U (Orsonnens)
+mode "$audio_bluetooth" {
+	bindsym s $btc "00:18:96:00:FF:A9", exec pactl-move sink bluez_sink.00_18_96_00_FF_A9.a2dp_sink, mode "default"
+	bindsym c $btc "04:FE:A1:55:A6:7A", exec pactl-move sink bluez_sink.04_FE_A1_55_A6_7A.a2dp_sink, mode "default"
+	bindsym h $btc "09:00:4B:00:12:08", exec pactl-move sink bluez_sink.09_00_4B_00_12_08.headset_head_unit, exec pactl-move source bluez_source.09_00_4B_00_12_08.headset_head_unit, mode "default"
+	bindsym Escape mode "default"
+}
+
+#bindsym XF86AudioRaiseVolume  exec amixer set -D default:PCH Master 5%+
+#bindsym XF86AudioLowerVolume  exec amixer set -D default:PCH Master 5%-
+#bindsym XF86AudioMute         exec amixer set -D default:PCH Master toggle
+#set $source alsa_input.pci-0000_00_1b.0.analog-stereo
+set $source @DEFAULT_SOURCE@
+#set $sink  alsa_output.pci-0000_00_1b.0.analog-stereo
+#set $sink $(pactl list short sinks | grep RUNNING | awk '{print $1}') # running source, might be none
+set $sink @DEFAULT_SINK@
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $sink +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $sink -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute   $sink toggle
+bindsym XF86AudioMicMute     exec pactl set-source-mute $source toggle
+
+#-------------------#
+# Screen brightness #
+#-------------------#
+
+set $mode_brightness Screen brightness: 1-10
+bindsym $mod+Shift+b mode "$mode_brightness"
+mode "$mode_brightness" {
+	bindsym 1 exec brightness 10%, mode "default"
+	bindsym 2 exec brightness 20%, mode "default"
+	bindsym 3 exec brightness 30%, mode "default"
+	bindsym 4 exec brightness 40%, mode "default"
+	bindsym 5 exec brightness 50%, mode "default"
+	bindsym 6 exec brightness 60%, mode "default"
+	bindsym 7 exec brightness 70%, mode "default"
+	bindsym 8 exec brightness 80%, mode "default"
+	bindsym 9 exec brightness 90%, mode "default"
+	bindsym 0 exec brightness 100%, mode "default"
+	bindsym Escape mode "default"
+}
+
+# Switched from xbacklight to light when changing DDX from xf86-video-intel to xf86-video-modesetting
+# https://www.reddit.com/r/archlinux/comments/4cojj9/it_is_probably_time_to_ditch_xf86videointel/
+# bindsym XF86MonBrightnessUp   exec light -A 1
+# bindsym XF86MonBrightnessDown exec light -U 1
+bindsym XF86MonBrightnessUp   exec brightness 1%+
+bindsym XF86MonBrightnessDown exec brightness 1%-
+
+#-------------#
+# Screenshots #
+#-------------#
+
+set $filename /data/inputs/screenshots/$(date +'%Y%m%d_%H%M%S.png')
+bindsym Print exec grim $filename
+#bindsym Shift+Print exec scrot -u $filename
+bindsym Control+Print exec grim -g "$(slurp)" $filename
+
+#----------------------------------#
+# Screen casting/recording/sharing #
+#----------------------------------#
+
+# Under Wayland, the screen is captured through Pipewire.
+
+# Make environment variables available to xdg-desktop-portal.
+# https://github.com/emersion/xdg-desktop-portal-wlr
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
