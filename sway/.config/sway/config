@@ -45,18 +45,16 @@ exec xrdb -load ~/.Xresources
 # virtual console: /etc/vconsole.conf
 
 # X11: /etc/X11/xorg.conf.d/30-touchpad.conf
-input "1739:0:Synaptics_TM3075-002" {
-	scroll_method edge
-	tap enabled
-	pointer_accel 0.8
+input "type:touchpad" {
+	natural_scroll enabled
+    dwt enabled
+    click_method clickfinger
+    tap enabled
 }
 
 input "1133:4122:Logitech_Performance_MX" {
 	pointer_accel 0.8
 }
-
-input "1386:236:Wacom_ISDv4_EC_Pen" map_to_output eDP-1
-input "1739:29252:SYNAPTICS_Synaptics_Touch_Digitizer_V04" map_to_output eDP-1
 
 #---------------------#
 # Basic configuration #
