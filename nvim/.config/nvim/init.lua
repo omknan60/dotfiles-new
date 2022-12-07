@@ -1,8 +1,1 @@
-require 'user.plugins'
-require 'user.settings'
-require 'user.keymaps'
-require 'user.lsp'
-require 'user.cmp'
-require 'user.treesitter'
-require 'user.telescope'
-require 'user.nvim-tree'
+require("user")
