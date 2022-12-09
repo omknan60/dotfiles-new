@@ -52,10 +52,6 @@ input "type:touchpad" {
     tap enabled
 }
 
-input "1133:4122:Logitech_Performance_MX" {
-	pointer_accel 0.8
-}
-
 #---------------------#
 # Basic configuration #
 #---------------------#
@@ -63,7 +59,7 @@ input "1133:4122:Logitech_Performance_MX" {
 set $mod Mod4
 
 # Window borders and titles
-default_border pixel 2
+default_border none
 hide_edge_borders none
 
 # Never move the mouse to the center of the screen.
@@ -71,7 +67,7 @@ mouse_warping none
 
 # Font for window titles (and the bar).
 #font pango:DejaVu Sans Mono 12
-font pango:Inconsolata 14
+font pango:Source Code Pro 12
 
 # start a terminal
 #set $shell exec termite -e fish

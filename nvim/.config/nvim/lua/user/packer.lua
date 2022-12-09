@@ -7,11 +7,12 @@ return require('packer').startup(function(use)
 
     -- Colorschemes
     use('gruvbox-community/gruvbox')
-    use("tjdevries/colorbuddy.nvim")
-    use("tjdevries/gruvbuddy.nvim")
     use("folke/tokyonight.nvim")
     use({"catppuccin/nvim", as = "catppuccin" })
     use({ 'rose-pine/neovim', as = 'rose-pine' })
+    use("Mofiqul/dracula.nvim")
+    use('rktjmp/lush.nvim')
+    use("Lokaltog/monotone.nvim")
 
     -- All the things
     use("neovim/nvim-lspconfig")

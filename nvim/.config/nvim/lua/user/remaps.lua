@@ -4,7 +4,7 @@ local nnoremap = keymap.nnoremap;
 
 vim.g.mapleader = " ";
 
-nnoremap("<leader>po", "<cmd>Ex<CR>");
+nnoremap("<leader>po", "<cmd>Lexplore<CR>");
 nnoremap("<leader>v", ":vs<CR>");
 nnoremap("<leader>h", ":sp<CR>");
 
