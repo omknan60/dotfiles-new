@@ -440,7 +440,7 @@ mode "$mode_open" {
 	bindsym a                                                        mode "$android_control"
 	bindsym Shift+a exec audacity,                                   mode "default"
 	bindsym b       exec blender,                                    mode "default"
-	bindsym f       exec firefox -P browsing,                        mode "default"
+	bindsym c       exec chromium,                                   mode "default"
 	bindsym g       exec gimp,                                       mode "default"
 	bindsym Shift+g exec gephi,                                      mode "default"
 	bindsym h       exec urxvt -e htop,                              mode "default"

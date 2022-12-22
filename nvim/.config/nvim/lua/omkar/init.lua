@@ -1,5 +1,6 @@
 require("omkar.set")
 require("omkar.remap")
+require("omkar.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
