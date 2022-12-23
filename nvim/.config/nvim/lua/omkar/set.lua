@@ -1,5 +1,7 @@
 vim.opt.guicursor = ""
 
+vim.opt.number = true
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -19,13 +21,10 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 5000
-
---vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
@@ -45,4 +44,3 @@ vim.g.loaded_netrw             = 1
 vim.g.loaded_netrwPlugin       = 1
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_remote_plugins    = 1
-
