@@ -1,7 +1,7 @@
-theme = "catppuccin_mocha"
+theme = "gruvbox"
 
 [editor]
-line-number = "relative"
+bufferline = "multiple"
 mouse = true
 auto-format = true
 auto-pairs = false
@@ -10,7 +10,7 @@ auto-pairs = false
 display-messages = true
 
 [editor.cursor-shape]
-insert = "bar"
+insert = "block"
 normal = "block"
 select = "underline"
 
