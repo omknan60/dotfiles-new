@@ -36,6 +36,8 @@ return require('packer').startup(function(use)
     }
     }
 
+    use ('voldikss/vim-floaterm')
+
     use {
     'nvim-tree/nvim-tree.lua',
     requires = {
