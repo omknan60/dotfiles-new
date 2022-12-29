@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n", "<leader>t", "<cmd>FloatermNew fff<CR>")
+vim.keymap.set("n", "<C-t>", "<cmd>FloatermNew<CR>")
 
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>")
