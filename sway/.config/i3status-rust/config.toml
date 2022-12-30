@@ -1,26 +1,20 @@
-# NOTE: this example targets the master branch of i3status-rust.
-#
-# For latest stable version, refer to
-# https://github.com/greshake/i3status-rust/blob/v0.22.0/examples/config.toml
-
 icons_format = "{icon}"
 
 [theme]
-theme = "solarized-dark"
+theme = "gruvbox-dark"
 [theme.overrides]
 idle_bg = "#123456"
 idle_fg = "#abcdef"
 
 [icons]
 icons = "awesome"
-[icons.overrides]
-bat = " | | "
-bat_full = " |X| "
-bat_charging = " |^| "
-bat_discharging = " |v| "
 
 [[block]]
 block = "cpu"
+
+[[block]]
+block = "battery"
+format = " $icon $percentage "
 
 [[block]]
 block = "disk_space"
@@ -35,7 +29,6 @@ format = " $icon root: $available.eng(2) "
 [[block]]
 block = "memory"
 format = " $icon $mem_total_used_percents.eng(2) "
-format_alt = " $icon_swap $swap_used_percents.eng(2) "
 
 [[block]]
 block = "sound"
