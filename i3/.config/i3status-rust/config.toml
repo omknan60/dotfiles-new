@@ -18,6 +18,10 @@ icons = "awesome"
 block = "cpu"
 
 [[block]]
+block = "battery"
+format = " $icon $percentage "
+
+[[block]]
 block = "disk_space"
 path = "/"
 info_type = "available"
