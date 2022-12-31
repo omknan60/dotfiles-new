@@ -48,6 +48,8 @@ default_border none
 # start a terminal
 bindsym $Mod+Return exec urxvtc
 
+bindsym $Mod+Shift+Home exec i3lock
+
 # kill focused window
 bindsym $Mod+Shift+q kill
 
