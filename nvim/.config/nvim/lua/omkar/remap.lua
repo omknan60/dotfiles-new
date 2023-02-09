@@ -1,15 +1,14 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n", "<leader>o", vim.cmd.NvimTreeToggle)
 vim.keymap.set("n", "<leader>t", "<cmd>FloatermNew fff<CR>")
-vim.keymap.set("n", "<c-t>", "<cmd>FloatermNew<CR>")
 
 vim.keymap.set("n", "<c-s>", ":w<CR>")
 vim.keymap.set("i", "<c-s>", "<Esc>:w<CR>")
 
-vim.keymap.set("n", "<c-h>", "<c-w>h")
-vim.keymap.set("n", "<c-j>", "<c-w>j")
-vim.keymap.set("n", "<c-k>", "<c-w>k")
-vim.keymap.set("n", "<c-l>", "<c-w>l")
+vim.keymap.set("n", "<c-left>", "<C-w>h")
+vim.keymap.set("n", "<c-down>", "<C-w>j")
+vim.keymap.set("n", "<c-up>", "<C-w>k")
+vim.keymap.set("n", "<c-right>", "<C-w>l")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
