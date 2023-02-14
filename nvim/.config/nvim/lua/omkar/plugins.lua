@@ -21,9 +21,12 @@ return require('lazy').setup{
     dependencies = { {'nvim-lua/plenary.nvim'} }
     },
 
-    "luisiacc/gruvbox-baby",
-    "rafamadriz/neon",
     "rebelot/kanagawa.nvim",
+    "rose-pine/neovim",
+    "EdenEast/nightfox.nvim",
+    "olimorris/onedarkpro.nvim",
+    "sainnhe/gruvbox-material",
+    "bluz71/vim-moonfly-colors",
 
     {
         'nvim-treesitter/nvim-treesitter',
