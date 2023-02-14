@@ -27,6 +27,7 @@ return require('lazy').setup{
     "olimorris/onedarkpro.nvim",
     "sainnhe/gruvbox-material",
     "bluz71/vim-moonfly-colors",
+    "catppuccin/nvim",
 
     {
         'nvim-treesitter/nvim-treesitter',
