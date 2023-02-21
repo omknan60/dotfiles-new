@@ -1,2 +1,1 @@
-vim.cmd[[set background=dark]]
-vim.cmd[[colorscheme onedark_dark]]
+vim.cmd[[colorscheme gruvbox-material]]

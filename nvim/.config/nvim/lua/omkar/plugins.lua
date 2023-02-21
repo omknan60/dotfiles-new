@@ -23,11 +23,9 @@ return require('lazy').setup{
 
     "rebelot/kanagawa.nvim",
     "rose-pine/neovim",
-    "EdenEast/nightfox.nvim",
-    "olimorris/onedarkpro.nvim",
     "sainnhe/gruvbox-material",
-    "bluz71/vim-moonfly-colors",
     "catppuccin/nvim",
+    "gruvbox-community/gruvbox",
 
     {
         'nvim-treesitter/nvim-treesitter',

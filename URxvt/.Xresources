@@ -14,11 +14,11 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
 XTerm*renderFont: true
-XTerm*font: xft:FiraCode Nerd Font Mono:style:Regular:size=13
-XTerm*boldFont: xft:FiraCode Nerd Font Mono:style:Bold:size=13
-XTerm*italicFont: xft:FiraCode Nerd Font Mono:style:Italic:size=13
-XTerm*boldItalicFont: xft:FiraCode Nerd Font Mono:style:Bold Italic:size=13
-XTerm*faceSize: 11
+XTerm*font: xft:SauceCodePro Nerd Font Mono:style:Regular:size=15
+XTerm*boldFont: xft:SauceCodePro Nerd Font Mono:style:Bold:size=15
+XTerm*italicFont: xft:SauceCodePro Nerd Font Mono:style:Italic:size=15
+XTerm*boldItalicFont: xft:SauceCodePro Nerd Font Mono:style:Bold Italic:size=15
+XTerm*faceSize: 15
 XTerm*utf8: 2
 XTerm*locale: true
 
@@ -42,10 +42,10 @@ URxvt*imLocale: en_US.UTF-8
 URxvt*termName: rxvt-unicode
 URxvt*buffered: false
 URxvt.intensityStyles: false
-URxvt.font: xft:FiraCode Nerd Font Mono:style:Regular:size=13
-URxvt.boldFont: xft:FiraCode Nerd Font Mono:style:Bold:size=13
-URxvt.italicFont: xft:FiraCode Nerd Font Mono:style:Italic:size=13
-URxvt.boldItalicFont: xft:FiraCode Nerd Font Mono:style:Bold Italic:size=13
+URxvt.font: xft:SauceCodePro Nerd Font Mono:style:Regular:size=15
+URxvt.boldFont: xft:SauceCodePro Nerd Font Mono:style:Bold:size=15
+URxvt.italicFont: xft:SauceCodePro Nerd Font Mono:style:Italic:size=15
+URxvt.boldItalicFont: xft:SauceCodePro Nerd Font Mono:style:Bold Italic:size=15
 URxvt.saveLines: 2000
 URxvt.scrollBar: false
 URxvt.cursorColor: white
@@ -78,7 +78,7 @@ URxvt*depth: 32
 ! COLORS FOR SXIV
 Sxiv.foreground:   #bbc2cf
 Sxiv.background:   #282c34
-Sxiv.font: Ubuntu:style=bold:size=11
+Sxiv.font: SauceCodePro Nerd Font Mono:style=bold:size=15
 
 ! Dracula Xresources palette
 *.foreground: #F8F8F2
