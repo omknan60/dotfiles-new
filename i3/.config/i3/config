@@ -1,4 +1,4 @@
-font pango:monospace 8
+font pango:monospace 13
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -7,10 +7,6 @@ font pango:monospace 8
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
-
-exec --no-startup-id urxvtd -q
-
-exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -28,9 +24,9 @@ exec feh --bg-scale ~/Pictures/wallpaper.jpg
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_06_00.6.HiFi__hw_Generic__sink toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
@@ -50,7 +46,7 @@ floating_modifier Mod1
 default_border none
 
 # start a terminal
-bindsym $Mod+Return exec urxvtc
+bindsym $Mod+Return exec st
 
 bindsym $Mod+Shift+Home exec i3lock
 
@@ -58,7 +54,7 @@ bindsym $Mod+Shift+Home exec i3lock
 bindsym $Mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $Mod+d exec --no-startup-id dmenu_run
+bindsym $Mod+d exec --no-startup-id dmenu_run -fn 'Droid Sans Mono-13'
 # A more modern dmenu replacement is rofi:
 # bindsym $Mod+d exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -195,23 +191,11 @@ bindsym $Mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-#         status_command i3status
-# }
-
 bar {
-    font pango:DejaVu Sans Mono, FontAwesome 12
-    position top
-    status_command /home/omkar/.cargo/bin/i3status-rs /home/omkar/.config/i3status-rust/config.toml
-    colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
-    }
+        status_command i3status
+        mode hide
+        hidden_state hide
+        modifier Mod1
 }
 
 #######################################################################
